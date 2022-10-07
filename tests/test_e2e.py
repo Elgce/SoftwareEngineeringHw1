@@ -42,8 +42,14 @@ class SeleniumTestCase(unittest.TestCase):
         # create the database and populate with some fake data
         db.drop_all()
         db.create_all()
-        me = User(username="test", password=encrypt_password(str("test")), nickname="test",
-                  mobile="+86.123456789012", magic_number=0, url="https://baidu.com")
+        me = User(
+            username="test",
+            password=encrypt_password(
+                str("test")),
+            nickname="test",
+            mobile="+86.123456789012",
+            magic_number=0,
+            url="https://baidu.com")
         db.session.add(me)
         db.session.commit()
 

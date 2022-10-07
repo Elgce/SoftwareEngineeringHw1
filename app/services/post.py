@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import datetime
+
+from sqlalchemy import and_
+
 from app.extensions import db
 from app.models import Post, Reply
-from sqlalchemy import and_
-import datetime
 
 
 class PostService():
@@ -43,7 +45,7 @@ class PostService():
                 {where}
             '''
             sql_content = content_base.format(limit=size, offset=(
-                page-1)*size, order=order_col, where=where_clause)
+                page - 1) * size, order=order_col, where=where_clause)
             sql_count = count_base.format(where=where_clause)
 
             content_result = db.session.execute(sql_content)
@@ -116,11 +118,8 @@ class PostService():
     def update_post(self, title, content, post_id, user_id):
         try:
             now = datetime.datetime.now()
-            db.session.query(Post).filter(and_(Post.id == post_id, Post.user_id == user_id)).update({
-                "title": title,
-                "content": content,
-                "updated": now
-            })
+            db.session.query(Post).filter(and_(Post.id == post_id, Post.user_id == user_id)).update(
+                {"title": title, "content": content, "updated": now})
             db.session.commit()
             return True
         except Exception as e:
@@ -195,10 +194,8 @@ class PostService():
     def update_reply(self, content, user_id, post_id, reply_id):
         try:
             now = datetime.datetime.now()
-            db.session.query(Reply).filter(and_(Reply.id == reply_id, Reply.user_id == user_id)).update({
-                "content": content,
-                "updated": now
-            })
+            db.session.query(Reply).filter(and_(Reply.id == reply_id, Reply.user_id == user_id)).update(
+                {"content": content, "updated": now})
             db.session.query(Post).filter(Post.id == post_id).update({
                 "last_replied_time": now,
                 "last_replied_user_id": user_id,
