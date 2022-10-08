@@ -32,7 +32,7 @@ class SeleniumTestCase(unittest.TestCase):
         # options.binary_location = "C:\Program Files\Google\Chrome Dev\Application\chrome.exe"
         # You need to change this to your actual web driver path.
         cls.client = webdriver.Chrome(
-            'drivers/chromedriver.exe', chrome_options=options)
+            'drivers/chromedriver', chrome_options=options)
 
         # create the application
         cls.app = create_app('test')
@@ -94,18 +94,42 @@ class SeleniumTestCase(unittest.TestCase):
         """
         TODO: 登录后发帖，发帖标题为：Hello World，发帖内容为：你好！
         """
-
+        time.sleep(1)
+        self.client.find_element_by_xpath(
+           '//*[@id="root"]/div/div[3]/div/div[1]/div/a' ).click()
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[1]/div/input').send_keys("Hello World")
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[2]/div[2]/section[1]/textarea').send_keys("你好！")
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[3]/button').click()
+        time.sleep(1)
         """
         TODO: 更新帖子标题为：Hello World！，帖子内容为：你好。
         """
-
+        self.client.find_element_by_xpath('//*[@id="post-main"]/div[2]/span[2]/span/a[1]').click()
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[1]/div/input').send_keys("!")
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[2]/div[2]/section[1]/textarea').clear()
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[2]/div[2]/section[1]/textarea').send_keys("你好。")
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[3]/button').click()
+        time.sleep(1)
         """
         TODO: 回复刚才的帖子，回复内容为：你好！
         """
-
+        self.client.find_element_by_xpath('//*[@id="post-main"]/div[2]/span[2]/span/a[2]').click()
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[2]/div[2]/section[1]/textarea').send_keys("你好！")
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div/div[3]/button').click()
         """
         TODO: 退出登录
         """
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/header/div/span/a').click()
+        time.sleep(1)
+        self.client.find_element_by_xpath('//*[@id="root"]/div/div[3]/div/div[6]/button').click()
+        time.sleep(2)
 
 
 if __name__ == '__main__':
