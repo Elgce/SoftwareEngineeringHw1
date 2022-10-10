@@ -49,7 +49,6 @@ def init_db():
     me = User(username="test", password=encrypt_password(str("test")), nickname="test", mobile="+86.123456789012", magic_number=0, url="https://baidu.com")  # noqa: E501
     db.session.add(me)
     db.session.commit()
-    
 
 
 if __name__ == '__main__':
