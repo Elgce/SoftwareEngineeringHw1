@@ -52,15 +52,16 @@ def register_params_check(content):
         if not isinstance(url, str):
             return 'url', False
         url_pattern = re.compile(
-            r"^(https?:\/\/)(((([\da-zA-Z]+)|([\da-zA-Z][\da-zA-Z-]*[\da-zA-Z]))\.)+"
-            r"(([\da-zA-Z]+)|([\da-zA-Z][\da-zA-Z-]*[\da-zA-Z])))$",
+            r"^(https?:\/\/)(((([\da-zA-Z]+)|([\da-zA-Z][\da-zA-Z-]*"
+            r"[\da-zA-Z]))\.)+(([\da-zA-Z]+)|([\da-zA-Z][\da-zA-Z-]*"
+            r"[\da-zA-Z])))$",
             re.S)
         if not re.match(url_pattern, url):
             return "url", False
         else:
             re_body = re.compile(
-                r"(((([\da-zA-Z]+)|([\da-zA-Z][\da-zA-Z-]*[\da-zA-Z]))\.)+(([\da-zA-Z]+)"
-                r"|([\da-zA-Z][\da-zA-Z-]*[\da-zA-Z])))$",
+                r"(((([\da-zA-Z]+)|([\da-zA-Z][\da-zA-Z-]*[\da-zA-Z]))\.)"
+                r"+(([\da-zA-Z]+)|([\da-zA-Z][\da-zA-Z-]*[\da-zA-Z])))$",
                 re.S)
             body = re.search(re_body, url).group()
             if len(body) > 48:
