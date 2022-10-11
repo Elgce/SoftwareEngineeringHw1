@@ -162,7 +162,8 @@ class BasicTestCase(unittest.TestCase):
             "username": "bqw123",
             "password": "Bqw1234_",
             "nickname": "elgce",
-            "url": "http://bqw.123.d-43.124.dfhkhdjhjkdsfhgkjdsfhgjksdfhgjkdfshsgdfhgds.com",
+            "url": "http://bqw.123.d-43.124.dfhkhdjhjkds\
+                fhgkjdsfhgjksdfhgjkdfshsgdfhgds.com",
             "mobile": "+86.123456789012",
             "magic_number": 2,
         }
